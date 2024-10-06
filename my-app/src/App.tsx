@@ -1,35 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import DisciplineQuestions from './components/DisciplineQuestions';
 import './App.css';
 
 const App: React.FC = () => {
-  const disciplines = [
-    {
-      id: 1,
-      name: 'Matemática',
-      questions: [
-        { id: 1, title: 'Questão 1 de Matemática' },
-        { id: 2, title: 'Questão 2 de Matemática' },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Física',
-      questions: [
-        { id: 3, title: 'Questão 1 de Física' },
-        { id: 4, title: 'Questão 2 de Física' },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Química',
-      questions: [
-        { id: 5, title: 'Questão 1 de Química' },
-        { id: 6, title: 'Questão 2 de Química' },
-      ],
-    },
-  ];
+  const [disciplines, setDisciplines] = useState([]);
+
+  useEffect(() => {
+    const fetchDisciplines = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/disciplines');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setDisciplines(data);
+      } catch (error) {
+        console.error('Failed to fetch disciplines:', error);
+      }
+    };
+
+    fetchDisciplines();
+  }, []);
 
   return (
     <div className="App">

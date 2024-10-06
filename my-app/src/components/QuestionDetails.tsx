@@ -6,41 +6,51 @@ interface QuestionDetailsProps {
 }
 
 interface QuestionDetails {
+  id: number;
   title: string;
   content: string;
   answer: string;
   image: string;
-  professorId?: number;
+  professorId?: number | null;
   studentId?: number;
   disciplineId: number;
 }
-
-const mockQuestions: { [key: number]: QuestionDetails } = {
-  1: {
-    title: 'Questão de Matemática',
-    content: 'Calcule a integral de x^2.',
-    answer: 'A resposta é x^3/3 + C.',
-    image: 'https://via.placeholder.com/150',
-    disciplineId: 1,
-    professorId: 101,
-  },
-  2: {
-    title: 'Questão de Física',
-    content: 'Explique o conceito de gravidade.',
-    answer: 'A gravidade é uma força que atrai objetos com massa.',
-    image: 'https://via.placeholder.com/150',
-    disciplineId: 2,
-    professorId: 102,
-  },
-};
 
 const QuestionDetails: React.FC<QuestionDetailsProps> = ({ questionId, onClose }) => {
   const [questionDetails, setQuestionDetails] = useState<QuestionDetails | null>(null);
 
   useEffect(() => {
-    if (questionId !== null) {
-      setQuestionDetails(mockQuestions[questionId] || null);
-    }
+    const fetchQuestionDetails = async () => {
+      if (questionId !== null) {
+        try {
+          const response = await fetch(`http://localhost:3000/api/questions/${questionId}`);
+          if (!response.ok) {
+            throw new Error('Erro ao buscar a questão');
+          }
+          const data = await response.json();
+
+          const imageBase64 = `data:image/png;base64,${btoa(
+            new Uint8Array(data.image.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+          )}`;
+
+          setQuestionDetails({
+            id: data.id,
+            title: data.title,
+            content: data.content,
+            answer: data.answer,
+            image: imageBase64,
+            professorId: data.professorId,
+            studentId: data.studentId,
+            disciplineId: data.disciplineId,
+          });
+        } catch (error) {
+          console.error('Falha ao buscar detalhes da questão:', error);
+          setQuestionDetails(null);
+        }
+      }
+    };
+
+    fetchQuestionDetails();
   }, [questionId]);
 
   if (!questionDetails) return null;
