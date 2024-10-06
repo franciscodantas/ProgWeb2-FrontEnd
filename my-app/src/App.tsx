@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import DisciplineQuestions from './components/DisciplineQuestions';
+import Login from './components/Login';
 import './App.css';
 
 const App: React.FC = () => {
@@ -24,10 +26,15 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="App">
-      <Header />
-      <DisciplineQuestions disciplines={disciplines} />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<DisciplineQuestions disciplines={disciplines} />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
