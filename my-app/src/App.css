@@ -1,90 +1,146 @@
+/* Estilo do cabeçalho */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: #007bff;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
-  font-size: 24px;
-  color: #333;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
 }
 
 .header .login-icon {
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
 }
 
+/* Container das questões */
 .questions-container {
   margin-top: 40px;
   padding: 20px;
+  background-color: #f1f1f1;
 }
 
+.questions-container h2 {
+  font-size: 24px;
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* Lista de questões */
 .questions-list {
-  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Duas colunas para organizar melhor */
+  gap: 15px;
   padding: 0;
+  list-style-type: none;
 }
 
 .questions-list li {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.questions-list li:last-child {
-  border-bottom: none;
+.questions-list li:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-5px); /* Efeito de flutuação */
 }
 
+/* Estilo do botão de questão */
+.button {
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  font-size: 16px;
+  color: #007bff;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+/* Estilo do modal de detalhes da questão */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6); /* Transparência mais escura */
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
   background: white;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 30px;
+  border-radius: 12px;
   max-width: 600px;
   width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: left;
 }
 
 .modal-content img {
   max-width: 100%;
   height: auto;
+  margin-top: 20px;
+  border-radius: 8px;
 }
 
+/* Estilo do botão de fechar */
 button {
-  margin-top: 10px;
-  padding: 8px 12px;
+  margin-top: 15px;
+  padding: 10px 15px;
   background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: background-color 0.2s;
 }
 
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo do container de login */
 .login-container {
   max-width: 400px;
   margin: auto;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 h2 {
   text-align: center;
+  font-size: 22px;
+  color: #333;
 }
 
 .error {
   color: red;
   text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
